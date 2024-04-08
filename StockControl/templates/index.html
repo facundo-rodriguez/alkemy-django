@@ -1,0 +1,99 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %} Home {%endblock%}</title>
+        <link rel="stylesheet"  href="{% static 'bootstrap.min.css' %}">
+        <link rel="stylesheet"  href="{% static 'style.css' %}">
+
+        <link href="https://fonts.googleapis.com/css2?family=Workbench&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Workbench&display=swap" rel="stylesheet">
+       
+        <link rel="stylesheet"  href="{% static 'css/proveedor.css' %}">
+        
+    </head>
+    <body style="background: url({% static '3418448.jpg' %})   no-repeat center center ; background-size:cover;">
+        <!-- bg-body-tertiary data-bs-theme="dark" -->
+        <nav class="navbar fixed-top navbar-expand-lg text-shadow" data-bs-theme="dark" >
+            <div class="container-fluid nav">
+                <span class="navbar-brand" >Menu</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="{%url 'menu' %}">Home</a>
+                        <a class="nav-link" href="{%url 'proveedores' %}">Proveedores</a> 
+                        <a class="nav-link" href="{%url 'productos' %}">Productos</a> 
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            {% block content %}
+
+                <section class="seccion-index">
+                    <!-- height="100%" width="100%" -->
+                    <div class="caja-video">
+                        <video muted autoplay loop src="{% static 'rayitos.mp4' %}" type="video/mp4"> 
+                            <!-- <source  />  -->
+                        </video>
+                    </div>
+                    <div class="texto">
+                        <h2 class="">Hola! Soy Facundo Rodiguez</h2>
+                        <p>Este es el Trabajo Integrador del curso de Python</p>
+                    </div>
+
+                </section>
+
+                <h4 class="text-shadow flash" style="text-align: center; font-size: 1.6rem; margin-bottom: 5%;"><ins>Requerimientos</ins></h4>
+              
+                <div class="container-fluid">
+                    
+                    <ul style="list-style: none; font-size: 1.2rem; ">
+                        Se pide crear un proyecto que podría ser llamado StockControl:
+                        <li><span class="text-shadow">✓</span> Agregar una app llamada compra.</li>
+                        <li><span class="text-shadow">✓</span> Dentro de esta app se deben agregar los modelos Producto y Proveedor
+                            (ver más abajo los fields requeridos).</li>
+                        <li><span class="text-shadow">✓</span> El Producto debe estar relacionado con el Proveedor: entiéndase que un
+                            Proveedor es una foreignkey en Producto.</li>
+                        <li><span class="text-shadow">✓</span> Crear el archivo migration y ejecutarlo.</li>
+
+                    </ul>
+                    
+                    <ul style="list-style: none; font-size: 1.2rem;" >
+                        La aplicación debe proveer la funcionalidad necesaria para realizar las siguientes operaciones:
+                        <li> <span class="text-shadow">✓</span> Agregar un nuevo Proveedor con el siguiente detalle:  
+                            nombre (texto),
+                            apellido (texto),
+                            dni (integer)</li>
+
+                        <li> <span class="text-shadow">✓</span> Agregar un nuevo Producto con el siguiente detalle:  
+                            nombre (texto),
+                            precio (float o integer),
+                            stock_actual (integer),
+                            proveedor (foreignkey con el modelo Proveedor)
+                        </li>
+                        <li> <span class="text-shadow">✓</span> Listar todos los productos y proveedores registrados en la base de datos</li>
+                        <li><span class="text-shadow">✓</span> Tener disponible en el Admin el modelo del producto y del proveedor.</li>
+                    </ul>
+
+                    <ul style="list-style: none; font-size: 1.2rem;">
+                        📭Entregables:
+                        <li><span class="text-shadow">✓</span> Repositorio en GitHub ( Código , Documentación pertinente)</li>
+                    </ul>
+
+                </div>
+
+                
+            {% endblock content %}
+
+        </main>
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+    </body>
+</html>

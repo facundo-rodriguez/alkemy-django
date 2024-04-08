@@ -1,0 +1,193 @@
+
+
+*{
+    box-sizing: border-box;
+    color:white;
+}
+
+
+.text-shadow{
+    
+    --color:rgb(48, 156, 238);
+    text-shadow:  0 0 5px var(--color), 
+    0 0 10px var(--color), 
+    0 0 20px var(--color), 
+    0 0 30px var(--color), 
+    0 0 40px var(--color), 
+    0 0 50px var(--color), 
+    0 0 60px var(--color); 
+
+    font-family: "Audiowide";
+
+}
+
+nav{
+    
+    background: linear-gradient(90deg, rgba(100,9,121,0.7673295454545455) , rgba(0,212,255,0.4855113636363636) );
+    
+}
+
+.nav{
+    text-align: center;
+    display: flex;
+    
+}
+
+.nav div{
+    justify-content: flex-end;
+    
+}
+
+
+.seccion-index{
+   
+    position: relative;
+    height: 100vh ; 
+
+    margin: 0%;
+    padding: 0%;
+    clip-path: polygon(0 0, 100% 0, 100% 99%, 0 84%);
+    overflow: hidden;
+}
+
+
+.seccion-index .caja-video{
+
+    position: fixed; 
+    top: 0%;
+    left: 0%; 
+    
+    width: 100%;
+    height: 100%;
+    background-color: blueviolet;
+    overflow: hidden;
+    
+}
+
+
+.seccion-index .caja-video video{
+    
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+
+}
+
+.seccion-index .texto {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+
+    width: 100%;
+    text-align: center;
+}
+
+.seccion-index .texto h2{
+  
+    position: relative;
+    font-size: 3em;
+    font-family: "Audiowide";
+
+    color: transparent;
+    background-image: linear-gradient(to left, #FFD700, #7B68EE, #3498db, #2ecc71, #FFD700);    
+    background-clip: text;
+    background-size: 500%;
+    
+
+    animation: myAnim 2s ease 0s 1 normal forwards, color 3s linear infinite; 
+    
+}
+
+
+
+
+.seccion-index .texto p{
+    
+    
+    margin: auto;
+    font-size: 1.5rem;
+    
+    font-family: "Audiowide";
+    color: transparent;
+    background-image: linear-gradient(to left, #FFD700, #7B68EE, #3498db, #2ecc71, #FFD700);    
+    background-clip: text;
+
+    text-align: center;
+    white-space: nowrap;
+    border-right: 4px solid; 
+    width: 41ch;
+    animation: typing 3s steps(41), blink .5s infinite  step-end alternate; 
+    overflow: hidden;
+} 
+
+
+.flash {
+    transform-origin: 50% 50%;
+    animation: flash-animation 5s infinite linear normal both running;
+}
+
+@keyframes flash-animation {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+
+    .seccion-index .texto h2{
+        font-size: 2rem;
+    }
+
+    .seccion-index .texto p{
+        font-size: 1rem;
+       
+    }
+}
+
+
+@keyframes color {
+    from {
+
+        background-position: 0% 50%;
+    }
+
+    to {
+        background-position: 100% 50%;
+    }
+}
+
+
+@keyframes typing{ 
+
+    from{width: 0;}
+}
+
+
+@keyframes blink{ 
+
+    50%{
+        border-color: transparent;
+    }
+}
+
+
+@keyframes myAnim {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

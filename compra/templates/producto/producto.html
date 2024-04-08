@@ -1,0 +1,43 @@
+
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block title %} Producto {% endblock title %}
+
+{% block content %}
+
+    <h2 class="text-shadow">Lista de Productos</h2>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Producto agregado con exito
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div style="text-align: center;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProducto">
+            Nuevo
+      </button>
+    </div>
+
+    <table class="table table-responsive-sm table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: auto; width: 50%; ">
+        <thead>
+            <th>Cod</th>
+            <th>nombre</th>
+            <th>precio</th>
+            <th>stock</th>
+            <th>proveedor</th>
+            <th>fecha alta</th>
+        </thead>
+        <tbody id="tbodyProductos">
+            
+        </tbody>
+    </table>
+    
+
+    {%include 'modal/formCrearProducto.html' %}  
+
+            
+    <script src="{% static 'js/productos.js' %}"></script>
+    
+{% endblock content %}

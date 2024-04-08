@@ -1,0 +1,75 @@
+
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block title %} Proveedor {% endblock title %}
+
+{% block content %}
+
+
+    <h2 class="text-shadow"> Lista de Proveedores</h2>
+
+    {% if creado %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Proveedor agregado con exito
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}   
+    <div style="text-align: center;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProveedor">
+            Nuevo
+      </button>
+    </div>
+
+
+    <div class="container-fluid">
+        <table class="table table-responsive-md table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: auto; width: 50%; ">
+            <thead>
+                <th>dni</th>
+                <th>nombre</th>
+                <th>apellido</th>
+                <th>Editar</th>
+            </thead>
+            <tbody class="">
+                {% for proveedor in proveedores %}
+                    <tr>
+                        <td>{{proveedor.dni}}</td>
+                        <td>{{proveedor.nombre}}</td>
+                        <td>{{proveedor.apellido}}</td> 
+                       
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+    {% include 'modal/formCrearProveedor.html' %}
+    {% include 'modal/formActualizarProveedor.html' %}
+
+    <!-- <td> 
+        <button type="button" onclick="mostrarProveedor( ['{{proveedor.dni}} ', '{{proveedor.nombre}} ', '{{ proveedor.apellido}} '] )" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalActualizarProveedor">
+            Editar
+        </button>
+    </td>
+    <script>
+        console.log( '{{proveedor.dni}}')
+    </script>
+    <script>
+        function mostrarProveedor(proveedor){ 
+            
+            let dni = document.querySelector("#modalActualizarProveedor input[name='dni']");
+            let nombre = document.querySelector("#modalActualizarProveedor input[name='nombre']");
+            let apellido = document.querySelector("#modalActualizarProveedor input[name='apellido']");
+
+            dni.value=proveedor[0];
+            nombre.value=proveedor[1];
+            apellido.value=proveedor[2];
+
+            console.log(proveedor[0]);
+        } 
+    </script> -->
+
+{% endblock content %}
