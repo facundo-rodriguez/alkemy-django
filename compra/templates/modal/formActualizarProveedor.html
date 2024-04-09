@@ -11,7 +11,7 @@
 {%endblock titleModal%}
 
 {% block formulario %}
-    <form class="form" action="{% url 'actualizarProveedor' %}" method="POST">
+    <form class="form"  method="POST">
         {% csrf_token %}
         
         <div class="form-group">

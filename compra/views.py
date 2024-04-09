@@ -53,9 +53,34 @@ def listaProveedores(request):
 
 
 
-def actualizarProveedor(request):
+def vistaActualizarProveedor(request, dni):
 
-    return HttpResponse("actualizar")
+    proveedor= Proveedor.objects.get(dni=dni)
+
+    return render(request,'proveedor/actualizarProveedor.html', {"proveedor":proveedor, "status":False})
+
+
+
+def actualizarProveedor(request):
+    
+    if request.method == 'POST':
+        dni = request.POST['dni']
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        
+        proveedor=Proveedor.objects.get(dni=dni)
+        proveedor.dni=dni
+        proveedor.nombre=nombre
+        proveedor.apellido=apellido
+        proveedor.save()
+
+        return render(request,'proveedor/actualizarProveedor.html', {"proveedor":proveedor, "status":True})
+                
+
+
+def eliminarProveedor(request):
+
+    return HttpResponse(request.POST["dniBorrar"])
 
 
 

@@ -8,7 +8,10 @@ urlpatterns = [
     path('proveedores/', views.proveedores, name="proveedores"),
     path('proveedores/agregarProveedor/', views.crearProveedor, name="agregarProveedor"), 
     path('proveedores/listaProveedores/', views.listaProveedores), 
-    path('proveedores/actualizarProveedor/', views.actualizarProveedor, name="actualizarProveedor"), 
+    path('proveedores/actualizarProveedor/<int:dni>', views.vistaActualizarProveedor, name="vistaActualizarProveedor"), 
+    path('proveedores/actualizar', views.actualizarProveedor, name="actualizarProveedor"), 
+    path('proveedores/eliminar', views.eliminarProveedor, name="eliminarProveedor"), 
+
 
     path('productos/', views.vistaProductos, name="productos"),
     path('productos/lista/', views.productos),

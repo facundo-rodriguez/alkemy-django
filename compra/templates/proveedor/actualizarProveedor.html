@@ -1,0 +1,47 @@
+
+
+
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block title %} Proveedor {% endblock title %}
+
+{% block content %}
+
+    <div class="container-fluid" >
+
+        <h2 class="text-shadow">Actualizar Proveedor</h2>
+
+        {% if status %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Proveedor actualizado con exito
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}  
+
+        <form class="form" action="{% url 'actualizarProveedor' %}" method="POST" style="width: 50%; margin: auto;">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <!-- <label class="form-label" for=""> dni </label> -->
+                <input class="form-control form-control-sm" type="hidden"  name="dni" placeholder="dni" value="{{proveedor.dni}}">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for=""> nombre </label>
+                <input class="form-control form-control-sm" type="text" name="nombre" placeholder="nombre" value="{{proveedor.nombre}}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for=""> apellido </label>
+                <input class="form-control form-control-sm" type="text" name="apellido" placeholder="apellido" value="{{proveedor.apellido}}">
+            </div>
+            
+            <div class="" style="text-align: center; margin-top: 10px;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit"  class="btn btn-primary">Save changes</button>
+            </div>
+        </form> 
+    </div>
+{% endblock content%}

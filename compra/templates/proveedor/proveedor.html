@@ -24,12 +24,13 @@
 
 
     <div class="container-fluid">
-        <table class="table table-responsive-md table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: auto; width: 50%; ">
+        <table class="table table-responsive-md table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: 10px auto ; width: 50%; ">
             <thead>
                 <th>dni</th>
                 <th>nombre</th>
                 <th>apellido</th>
                 <th>Editar</th>
+                <th>Eliminar</th>
             </thead>
             <tbody class="">
                 {% for proveedor in proveedores %}
@@ -37,7 +38,20 @@
                         <td>{{proveedor.dni}}</td>
                         <td>{{proveedor.nombre}}</td>
                         <td>{{proveedor.apellido}}</td> 
-                       
+                        <td> 
+                            <a type="button" href="{% url 'vistaActualizarProveedor' proveedor.dni %}"  class="btn btn-success" >
+                                Editar
+                            </a>
+                        </td>
+                        <td> 
+
+                            <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+                            <button type="button" onclick="modalEliminar('{{proveedor.dni}}')" class="btn btn-danger" >
+                                Eliminar
+                            </button>
+
+                        </td>
+
                     </tr>
                 {% endfor %}
             </tbody>
@@ -49,27 +63,53 @@
     {% include 'modal/formCrearProveedor.html' %}
     {% include 'modal/formActualizarProveedor.html' %}
 
-    <!-- <td> 
-        <button type="button" onclick="mostrarProveedor( ['{{proveedor.dni}} ', '{{proveedor.nombre}} ', '{{ proveedor.apellido}} '] )" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalActualizarProveedor">
-            Editar
-        </button>
-    </td>
-    <script>
-        console.log( '{{proveedor.dni}}')
-    </script>
-    <script>
-        function mostrarProveedor(proveedor){ 
+    <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-theme="dark" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Seguro que quiere eliminar al proveedor?</h4>
+        </div>
+        <div class="modal-footer">
+          
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             
-            let dni = document.querySelector("#modalActualizarProveedor input[name='dni']");
-            let nombre = document.querySelector("#modalActualizarProveedor input[name='nombre']");
-            let apellido = document.querySelector("#modalActualizarProveedor input[name='apellido']");
+            <form id="btnFormEliminar" action="{% url 'eliminarProveedor' %}" method="post">
+                 {% csrf_token %}  
+                <input type="hidden"  name="dniBorrar">
+                <input type="submit"   class="btn btn-danger"  value="Eliminar">
+                    
+            </form>
 
-            dni.value=proveedor[0];
-            nombre.value=proveedor[1];
-            apellido.value=proveedor[2];
+        </div>
+      </div>
+    </div>
+  </div>
 
-            console.log(proveedor[0]);
-        } 
-    </script> -->
+
+
+    <script >
+        function modalEliminar(dni){
+            
+            const myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+            myModal.show()        
+            
+            //const myModalAlternative = new bootstrap.Modal('#exampleModal',option)
+            //myModalAlternative.show()
+            
+            let dniBorrar = document.querySelector("#btnFormEliminar input[name='dniBorrar']")
+            dniBorrar.value=dni
+            
+            console.log(dni)
+        }
+
+    </script>
 
 {% endblock content %}
