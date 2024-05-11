@@ -1,0 +1,52 @@
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditarActualizar" tabindex="-1" data-bs-theme="dark" aria-labelledby="editarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="editarModalLabel">Actualizar Producto</h3> <!--Eliminar-->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form"   id="formEditarProducto"  onsubmit="return false;" >
+          {% csrf_token %} 
+
+          <div class="form-group">
+            <input class="form-control form-control-sm" type="text" hidden name="id_productoU" >
+          </div>
+
+          <div class="form-group">
+              <label class="form-label" for=""> nombre </label>
+              <input class="form-control form-control-sm" type="text"  name="nombreU" placeholder="nombre">
+          </div>
+          
+          <div class="form-group">
+              <label class="form-label" for=""> precio </label>
+              <input class="form-control form-control-sm" type="number" name="precioU" placeholder="precio">
+          </div>
+  
+          <div class="form-group">
+              <label class="form-label" for=""> stock </label>
+              <input class="form-control form-control-sm" type="number" name="stockU" placeholder="stock">
+          </div>
+  
+          <div class="form-group">
+              <label class="form-label" for=""> proveedor </label>
+              
+              <select name="proveedorU" id="selectProveedorU"></select>
+          </div>
+          
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" id="submit" onclick="actualizarProducto('{% url 'actualizarProducto' %}' )"  class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+        
+      </div>
+    
+    </div>
+  </div>
+</div>

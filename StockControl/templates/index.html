@@ -16,7 +16,7 @@
         <link rel="stylesheet"  href="{% static 'css/proveedor.css' %}">
         
     </head>
-    <body style="background: url({% static '3418448.jpg' %})   no-repeat  center center ; background-size:cover ">
+    <body style="background: url({% static '3418448.jpg' %})  no-repeat   ; background-size:cover; ">
         <!-- bg-body-tertiary data-bs-theme="dark" -->
         <nav class="navbar fixed-top navbar-expand-lg text-shadow" data-bs-theme="dark" >
             <div class="container-fluid nav">
@@ -47,6 +47,7 @@
                     <div class="texto">
                         <h2 class="">Hola! Soy Facundo Rodiguez</h2>
                         <p>Este es el Trabajo Integrador del curso de Python</p>
+                        <p><span></span></p>
                     </div>
 
                 </section>
@@ -94,6 +95,11 @@
             {% endblock content %}
 
         </main>
+
+        <footer>
+            <p class="text-shadow">Facundo Rodriguez - 2024</p>
+        </footer>
+        
         <script src="{% static 'bootstrap.min.js' %}"></script>
     </body>
 </html>

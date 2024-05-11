@@ -9,10 +9,8 @@
 
     <h2 class="text-shadow">Lista de Productos</h2>
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Producto agregado con exito
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <div id="alerta"></div>
+
 
     <div style="text-align: center;">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProducto">
@@ -20,22 +18,29 @@
       </button>
     </div>
 
-    <table class="table table-responsive-sm table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: auto; width: 50%; ">
-        <thead>
-            <th>Cod</th>
-            <th>nombre</th>
-            <th>precio</th>
-            <th>stock</th>
-            <th>proveedor</th>
-            <th>fecha alta</th>
-        </thead>
-        <tbody id="tbodyProductos">
-            
-        </tbody>
-    </table>
+    <div class="container-fluid table-responsive-lg">
+        
+        <table class="table  table-dark table-hover table-bordered border-primary table-md" style="text-align: center; margin: auto; width: 70%; ">
+            <thead>
+                <th>Cod</th>
+                <th>nombre</th>
+                <th>precio</th>
+                <th>stock</th>
+                <th>proveedor</th>
+                <th>fecha alta</th>
+                <th>editar</th>
+                <th>eliminar</th>
+            </thead>
+            <tbody id="tbodyProductos">
+                
+            </tbody>
+        </table>
+    </div>
     
 
     {%include 'modal/formCrearProducto.html' %}  
+    {%include 'modal/modalProducto/modalEditar.html' %}
+    {%include 'modal/modalProducto/modalEliminar.html' %}
 
             
     <script src="{% static 'js/productos.js' %}"></script>

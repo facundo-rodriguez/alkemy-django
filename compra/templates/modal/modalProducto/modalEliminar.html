@@ -1,0 +1,27 @@
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modalEliminarProducto" tabindex="-1" data-bs-theme="dark" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="eliminarModalLabel"></h1> <!--Eliminar-->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Seguro quiere eliminar el producto?</h4> <!---->
+        </div>
+        <div class="modal-footer">
+          
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            
+            <form id="formElimnarProducto" onsubmit="return false;" >
+                 {% csrf_token %}  
+                <input type="hidden"  name="id_productoD"> 
+                <button type="submit" class="btn btn-warning" onclick="eliminarProducto('{% url 'eliminarProducto' %}')" >Eliminar</button>
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>

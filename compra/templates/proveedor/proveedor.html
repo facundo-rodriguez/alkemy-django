@@ -10,12 +10,13 @@
 
     <h2 class="text-shadow"> Lista de Proveedores</h2>
 
-    {% if creado %}
+    <!-- {% if creado or status %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Proveedor agregado con exito
+            {{mensaje}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    {% endif %}   
+    {% endif %}  -->
+      
     <div style="text-align: center;">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProveedor">
             Nuevo
@@ -23,8 +24,8 @@
     </div>
 
 
-    <div class="container-fluid">
-        <table class="table table-responsive-md table-dark table-hover table-bordered border-primary table-sm" style="text-align: center; margin: 10px auto ; width: 50%; ">
+    <div class="container-fluid table-responsive-lg" >
+        <table class="table table-dark table-hover table-bordered border-primary table-md" style="text-align: center; margin: auto ; width: 70%; ">
             <thead>
                 <th>dni</th>
                 <th>nombre</th>
@@ -44,72 +45,23 @@
                             </a>
                         </td>
                         <td> 
-
                             <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
-                            <button type="button" onclick="modalEliminar('{{proveedor.dni}}')" class="btn btn-danger" >
+                            <button type="button" onclick="modalPopUp( '{% url 'eliminarProveedor'  proveedor.dni   %}'  )" class="btn btn-danger" >
                                 Eliminar
                             </button>
-
                         </td>
 
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
 
 
     {% include 'modal/formCrearProveedor.html' %}
-    {% include 'modal/formActualizarProveedor.html' %}
+   
+    {% include 'modal/modalPopUp.html' %}  
 
-    <!-- Button trigger modal -->
-
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-theme="dark" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <h4>Seguro que quiere eliminar al proveedor?</h4>
-        </div>
-        <div class="modal-footer">
-          
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            
-            <form id="btnFormEliminar" action="{% url 'eliminarProveedor' %}" method="post">
-                 {% csrf_token %}  
-                <input type="hidden"  name="dniBorrar">
-                <input type="submit"   class="btn btn-danger"  value="Eliminar">
-                    
-            </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-    <script >
-        function modalEliminar(dni){
-            
-            const myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
-            myModal.show()        
-            
-            //const myModalAlternative = new bootstrap.Modal('#exampleModal',option)
-            //myModalAlternative.show()
-            
-            let dniBorrar = document.querySelector("#btnFormEliminar input[name='dniBorrar']")
-            dniBorrar.value=dni
-            
-            console.log(dni)
-        }
-
-    </script>
+  <script src="{% static 'js/modalPopUp.js' %}"></script>
 
 {% endblock content %}

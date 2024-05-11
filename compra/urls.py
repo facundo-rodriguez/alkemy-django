@@ -9,12 +9,15 @@ urlpatterns = [
     path('proveedores/agregarProveedor/', views.crearProveedor, name="agregarProveedor"), 
     path('proveedores/listaProveedores/', views.listaProveedores), 
     path('proveedores/actualizarProveedor/<int:dni>', views.vistaActualizarProveedor, name="vistaActualizarProveedor"), 
-    path('proveedores/actualizar', views.actualizarProveedor, name="actualizarProveedor"), 
-    path('proveedores/eliminar', views.eliminarProveedor, name="eliminarProveedor"), 
+    path('proveedores/proveedorActualizado/<int:dni>', views.actualizarProveedor, name="actualizarProveedor"), 
+    path('proveedores/eliminar/<int:dni>', views.eliminarProveedor, name="eliminarProveedor"), 
 
 
     path('productos/', views.vistaProductos, name="productos"),
     path('productos/lista/', views.productos),
-    path('productos/agregar/', views.crearProducto)
+    path('productos/agregar/', views.crearProducto, name="crearProducto"),
+    path('productos/actualizar/', views.actualizarProducto, name="actualizarProducto"),
+    path('productos/eliminar/', views.eliminarProducto, name="eliminarProducto")
+    
     
 ]

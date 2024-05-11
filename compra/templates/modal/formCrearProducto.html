@@ -3,7 +3,7 @@
 
 
 {%block divModal%}
-    <div class="modal fade" id="modalProducto"  data-bs-theme="dark" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalProducto"  data-bs-theme="dark" tabindex="-1"  aria-hidden="true"><!--aria-labelledby="exampleModalLabel"-->
 {%endblock divModal %}
 
 {%block titleModal%}
@@ -12,7 +12,7 @@
 
 {% block formulario %}
 
-    <form class="form"   id="formProducto"  onsubmit="return false;" >
+    <form class="form"   id="formCrearProducto"  onsubmit="return false;" >
         {% csrf_token %} 
     
         <div class="form-group">
@@ -42,7 +42,7 @@
         onclick="formulario(this.form)" -->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" id="submit" onclick="crearProducto()"  class="btn btn-primary">Guardar</button>
+            <button type="submit" id="submit" onclick="crearProducto('{% url 'crearProducto' %}' )"  class="btn btn-primary">Guardar</button>
         </div>
     </form>
 

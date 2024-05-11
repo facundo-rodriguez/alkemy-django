@@ -16,7 +16,7 @@ def proveedores(request):
     
     listaProveedores= list(Proveedor.objects.all() )
 
-    return render(request, 'proveedor/proveedor.html', {'proveedores':listaProveedores , 'creado':None})   # HttpResponse("proveedor")
+    return render(request, 'proveedor/proveedor.html', {'proveedores':listaProveedores , 'status':False})   # HttpResponse("proveedor")
 
 
 def crearProveedor(request):
@@ -30,7 +30,7 @@ def crearProveedor(request):
         
         listaProveedores= list(Proveedor.objects.all() )
 
-        return render(request, 'proveedor/proveedor.html', {'proveedores':listaProveedores, 'creado': proveedor})
+        return render(request, 'proveedor/msjAccion.html', {'proveedor':listaProveedores, 'status':True,  'creado': proveedor , "mensaje":"proveedor creado con exito" })
     
 
 
@@ -47,8 +47,10 @@ def listaProveedores(request):
                         for proveedor in proveedores
                     ]
 
+    response=JsonResponse( listaProveedores,safe=False )
+    response["Access-Control-Allow-Origin"]="*"
 
-    return JsonResponse( listaProveedores,safe=False )
+    return response
 
 
 
@@ -57,31 +59,46 @@ def vistaActualizarProveedor(request, dni):
 
     proveedor= Proveedor.objects.get(dni=dni)
 
-    return render(request,'proveedor/actualizarProveedor.html', {"proveedor":proveedor, "status":False})
+    return render(request,'proveedor/actualizarProveedor.html', {"proveedor":proveedor, "status":False, "mensaje": ""})
 
 
 
-def actualizarProveedor(request):
-    
-    if request.method == 'POST':
-        dni = request.POST['dni']
-        nombre = request.POST['nombre']
-        apellido = request.POST['apellido']
-        
+def actualizarProveedor(request,dni):
+
         proveedor=Proveedor.objects.get(dni=dni)
-        proveedor.dni=dni
-        proveedor.nombre=nombre
-        proveedor.apellido=apellido
-        proveedor.save()
+        status=False
+        msj="No se puede actualizar"
 
-        return render(request,'proveedor/actualizarProveedor.html', {"proveedor":proveedor, "status":True})
-                
+        if request.method == 'POST':
+            dni = request.POST['dni']
+            nombre = request.POST['nombre']
+            apellido = request.POST['apellido']
+            
+            proveedor.dni=dni
+            proveedor.nombre=nombre
+            proveedor.apellido=apellido
+
+            status=True
+            msj="actualizado con exito"
+
+            proveedor.save()
+
+    
+        return render(request,'proveedor/msjAccion.html', {"proveedor":proveedor, "status":status, "mensaje": msj})
+
+        #return redirect(request,'proveedor/proveedor.html') #, {"proveedor":proveedor, "status":False, "mensaje": ""}
+    
 
 
-def eliminarProveedor(request):
 
-    return HttpResponse(request.POST["dniBorrar"])
+def eliminarProveedor(request,dni):
 
+    Proveedor.objects.get(dni=dni).delete()
+            
+    listaProveedores= list(Proveedor.objects.all() )
+
+    return render(request, 'proveedor/msjAccion.html', {'proveedor':listaProveedores, 'status':True,   "mensaje":"Eliminado" })
+   
 
 
 def vistaProductos(request):
@@ -106,35 +123,90 @@ def productos(request):
                     for producto in listaProductos 
                 ]
 
-
-    return JsonResponse( productosJson,safe=False )
+    response=JsonResponse( productosJson,safe=False )
+    response["Access-Control-Allow-Origin"] = "*"
+    
+    return response
 
 
 
 def crearProducto(request):
 
-    if( request.method=="POST"):
-        #recibo los datos en el cuerpo de la peticion, y tengo que convertirlos a json
-        #el metodo loads de json lo que hace es convertir la cadena de texto en un objeto o diccionario.
-        datos=json.loads(request.body.decode("utf-8"))
+    try:
+        if( request.method=="POST"):
+            #recibo los datos en el cuerpo de la peticion, y tengo que convertirlos a json
+            #el metodo loads de json lo que hace es convertir la cadena de texto en un objeto o diccionario.
+            datos=json.loads(request.body.decode("utf-8"))
+            
+            nombre=datos["nombre"]
+            precio=datos.get("precio") 
+            stock=datos.get("stock")
+            id_proveedor=datos["id_proveedor"]
+
+            proveedor=Proveedor.objects.get(dni=id_proveedor)
         
-        nombre=datos["nombre"]
-        precio=datos.get("precio") 
-        stock=datos.get("stock")
-        id_proveedor=datos["id_proveedor"]
+            producto=Producto.objects.create(nombre=nombre, 
+                                            precio=precio, 
+                                            stock_actual=stock, 
+                                            fk_proveedor=proveedor 
+                                            )
+            
+            print("nombre ",precio)
 
-        proveedor=Proveedor.objects.get(dni=id_proveedor)
-       
-        producto=Producto.objects.create(nombre=nombre, 
-                                        precio=precio, 
-                                        stock_actual=stock, 
-                                        fk_proveedor=proveedor 
-                                        )
+            response=JsonResponse({'success':True, 'msj':"producto creado"}, safe=False)
+            # response["Access-Control-Allow-Origin"] = "*"
+            
+            return response
         
-        print("nombre ",precio)
-        return JsonResponse({'success':True}, safe=False)
+        else:
+            return JsonResponse({'success':False, 'msj':'no se pudo procesar la solicitud :/'}, safe=False)
 
-    return JsonResponse({'success':'no funciona :/'}, safe=False)
+    except:    
+        
+        response=JsonResponse({'success':False, 'msj':'no funciona :/'}, safe=False)
+        return response
 
 
+def actualizarProducto(request):
+    
+    try:
 
+        if(request.method=="PUT"):
+            datos= json.loads(request.body.decode('utf-8'))
+            print(datos)
+
+            producto=Producto.objects.get(id_producto=datos.get('id_producto'))
+            
+            producto.nombre=datos.get("nombre")
+            producto.precio=datos.get("precio")
+            producto.stock_actual=datos.get("stock")
+            producto.fk_proveedor=Proveedor.objects.get(dni=datos.get("id_proveedor"))
+
+            producto.save()
+
+            return JsonResponse({'success':True, 'msj':"producto actualizado"}, safe= False)
+        
+        else:
+            return JsonResponse({'success':False, 'msj':"no se pudo procesar la solicitud"}, safe= False)
+            
+    except:
+        return JsonResponse({'success':False, 'msj':"No se actualizó el producto"}, safe= False)
+    
+
+
+def eliminarProducto(request):
+    
+    try:
+        if(request.method=="DELETE"):
+            datos= json.loads(request.body.decode('utf-8'))
+            
+            Producto.objects.get(id_producto=datos.get("id_producto")).delete()
+            print(datos)
+
+            return JsonResponse({'success':True, 'msj':"producto eliminado"}, safe= False)
+
+        else:
+            return JsonResponse({'success':False, 'msj':"no se pudo procesar la solicitud"}, safe= False)
+
+    except:
+         return JsonResponse({'success':False, 'msj':"el producto no se elimino"}, safe= False)
